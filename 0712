@@ -1,0 +1,56 @@
+	if(enemy_ == null)
+	{
+		return false;
+	}
+	//先生のコード
+	/*var d = Vector3.Distance(bullet.transform.position , enemy_.transform.position);
+	var size = bullet.radius + (enemy_.transform.localScale.x * 0.5f);
+
+	if(d <= size)
+	{
+		ResetEnemy();
+		return true;
+	}*/
+	//自分でコード
+	var sphere1 = bullet;
+	var sphere2 = enemy_;
+
+	var length = (sphere1.transform.position - sphere2.transform.position).magnitude;
+	
+	var radius1 = 0.5f;
+	var radius2 = 0.5f;
+
+	var checkLength = radius1 + radius2;
+
+	if(length <= checkLength)
+	{
+		ResetEnemy();
+		return true;
+	}
+
+	return false;
+}
+
+//先生のコード
+if(enemy_ == null)
+{
+	return;
+}
+-------------------------------------------------------
+var forwad = bullet.transform.forward;
+var BtoE = enemy_.transform.position - bullet.transform.position;
+
+var dot = Vector3.Dot(BtoE, forwad);
+var point = bullet.transform.position + (bullet.transform.forward * dot);
+
+var d = Vector3.Distance(point, enemy_.transform.position);
+var size = bullet.radius + (enemy_.transform.localScale.x * 0.5f);
+
+if(d < size)
+{
+	enemy_.GetComponent<MeshRenderer>().materials[0].color = Color.red;
+}
+else
+{
+	enemy_.GetComponent<MeshRenderer>().materials[0].color = Color.white;
+}
